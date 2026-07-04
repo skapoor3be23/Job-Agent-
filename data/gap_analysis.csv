@@ -1,0 +1,93 @@
+company,title,match_score,gap_analysis
+Durapid Technologies Pvt Ltd,Python AI/ML Intern,0.69864976,"Here's a comparison of the resume against the job description:
+
+1.  **Missing skills/keywords (max 8):**
+    *   TensorFlow
+    *   PyTorch
+    *   scikit-learn
+    *   Pandas
+    *   NumPy
+    *   Machine Learning Algorithms (e.g., Classification, Regression)
+    *   Data Cleaning (as a specific skill)
+    *   Model Validation (as a specific skill)
+
+2.  **Specific resume edits to add (max 3 bullet points, concrete wording):**
+    *   Under ""Technical Skills,"" add a new category ""Data Science & ML Libraries: Pandas, NumPy, scikit-learn (basic familiarity).""
+    *   In the ""Objective"" or ""Technical Skills"" (under LLMs & AI), add: ""Foundational understanding of machine learning concepts (e.g., supervised/unsupervised learning, classification, regression).""
+    *   In the ""AI Research Assistant"" project, add a bullet point: ""Applied data preprocessing techniques including recursive text chunking and embedding generation for efficient knowledge retrieval, and implemented a two-layer model validation system for hallucination prevention.""
+
+3.  **Overall fit verdict in one line:**
+    The candidate demonstrates strong practical experience with modern AI (LLMs, RAG) and robust software development skills, but the resume lacks explicit mention of traditional ML frameworks (TensorFlow, PyTorch, scikit-learn) and common data manipulation libraries (Pandas, NumPy), making it a **moderate match**."
+Topcoder,AI Model Quality & Evaluation Specialist (STEM Domains),0.693532006,"Here's a comparison of the resume against the job description:
+
+1.  **Missing skills/keywords (max 8):**
+    *   Mathematics (domain expertise)
+    *   Physics (domain expertise)
+    *   Chemistry (domain expertise)
+    *   Biology (domain expertise)
+    *   Finance (domain expertise)
+    *   AI Model Evaluation (broader than just hallucination prevention)
+    *   Content Quality Assessment
+    *   Benchmarking / Metrics
+
+2.  **Specific resume edits to add (max 3 bullet points, concrete wording):**
+    *   **Add a ""Relevant Coursework"" section under Education, listing specific B.Tech courses in advanced Mathematics, Physics, and Computer Science to demonstrate foundational STEM knowledge.**
+    *   **Modify the ""Objective"" to explicitly state a desire to ""evaluate and enhance the accuracy, clarity, and depth of AI responses"" in addition to building LLM applications.**
+    *   **In the ""AI Research Assistant"" project, rephrase the hallucination prevention bullet to highlight its direct impact on ""improving AI response quality and reliability through rigorous evaluation.""**
+
+3.  **Overall fit verdict in one line (strong/moderate/weak match, why):**
+    Weak match due to not meeting the strict institutional (IITs) and academic (Computer Science, JEE Advanced rank) eligibility criteria, despite possessing relevant technical skills in LLM development and hallucination prevention."
+SciTech Patent Art Services Pvt Ltd,AI/ML & Agentic AI Intern,0.687805731,"Here's the comparison:
+
+1.  **Missing skills/keywords (max 8):**
+    *   Machine Learning (general algorithms beyond LLMs)
+    *   ML Frameworks (e.g., PyTorch, TensorFlow, scikit-learn)
+    *   Pandas, NumPy
+    *   SQL
+    *   Model Evaluation (metrics, techniques)
+    *   Cloud Platforms (AWS, Azure, GCP beyond Google AI Studio)
+    *   Coding Agents (explicit experience/focus)
+    *   Software Testing (specific to ML models/pipelines)
+
+2.  **Specific resume edits to add (max 3 bullet points, concrete wording):**
+    *   Under ""Technical Skills,"" add a new category ""Data & ML Tools:"" and list ""Pandas, NumPy, SQL, scikit-learn.""
+    *   In the ""Objective,"" explicitly include ""coding agents"" in the target applications: ""...scalable LLM-powered applications, chatbots, automation systems, **coding agents,** and real-world AI products.""
+    *   In the ""AI Research Assistant"" project, add a bullet point detailing testing/evaluation: ""Employed iterative testing and feedback loops to refine agent routing logic and hallucination prevention, ensuring robust performance and reliability.""
+
+3.  **Overall fit verdict in one line:**
+    Strong match; the candidate demonstrates direct, hands-on experience with core LLM, AI Agent, and RAG technologies, along with a proactive approach to building and deploying AI applications, despite minor gaps in general ML breadth and specific data analysis tools."
+IAI solution,AI/ML Intern,0.679386072,"Here's a comparison of the resume against the job description:
+
+1.  **Missing skills/keywords (max 8):**
+    *   Cloud Platforms (e.g., AWS, Azure, GCP)
+    *   MLOps Tools (e.g., Docker, Kubernetes)
+    *   LLM Evaluation Metrics
+    *   Fine-tuning LLMs
+    *   Data Engineering (for LLMs/large text corpuses)
+
+2.  **Specific resume edits to add (max 3 bullet points, concrete wording):**
+    *   **Quantify Project Impact:** Add quantifiable metrics to the ""AI Research Assistant"" project, such as ""Achieved X% accuracy in query routing"" or ""Reduced LLM hallucination rate by Y% through a two-layer prevention system.""
+    *   **Highlight MLOps/Deployment Readiness:** In the ""Technical Skills"" section, add a category like ""Deployment & MLOps"" and list relevant tools/concepts (e.g., Docker, CI/CD principles) if applicable, or mention ""experience deploying scalable applications.""
+    *   **Emphasize Teamwork/Collaboration:** For the ""3D Geometric Transformation Visualizer"" project, rephrase to explicitly highlight collaborative problem-solving and team contribution, e.g., ""Collaborated effectively in a 3-person team to design and implement...""
+
+3.  **Overall fit verdict in one line:**
+    **Strong match.** The candidate possesses extensive hands-on experience with LLMs, RAG, and AI agents, demonstrated through a highly relevant personal project that aligns perfectly with the job description's focus on ""LLMs & Agent Systems"" and ""real-world AI development."""
+Newton School,Data Scientist  Associate Instructor,0.671488366,"Here's a comparison of the resume against the job description:
+
+1.  **Missing skills/keywords:**
+    *   Teaching/Instructional Experience
+    *   Curriculum Design/Development
+    *   Mentoring
+    *   Statistics
+    *   ML Algorithms (general, beyond LLMs/RAG)
+    *   Deep Learning (general, beyond LLMs)
+    *   Computer Vision (domain knowledge)
+    *   ML Ops
+
+2.  **Specific resume edits to add:**
+    *   Revise the ""Objective"" to express interest in an instructor/mentoring role, highlighting a passion for teaching and guiding students in AI/ML.
+    *   Add a ""Teaching & Mentorship"" section or bullet points under ""Additional"" detailing any experience explaining complex technical concepts, tutoring, or leading study groups.
+    *   Include any experience with general ML algorithms (e.g., classification, regression) or other Deep Learning architectures (e.g., CNNs, RNNs) in ""Technical Skills"" or project descriptions.
+
+3.  **Overall fit verdict in one line:**
+    Moderate match. The candidate possesses strong technical skills in Generative AI/LLMs, but the resume lacks explicit teaching, curriculum design, or broader ML/DL experience crucial for an instructor role."

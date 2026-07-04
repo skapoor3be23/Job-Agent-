@@ -1,0 +1,31 @@
+company,title,match_score,gap_analysis,company_research,critique_score,final_cover_note
+Durapid Technologies Pvt Ltd,Python AI/ML Intern,0.698649759815272,"**1) Missing skills (max 8):**
+
+1.  **Traditional ML Frameworks:** Explicit experience with frameworks like scikit-learn, TensorFlow, or PyTorch for general machine learning tasks.
+2.  **Classical ML Algorithms:** Direct mention of experience with algorithms beyond LLMs (e.g., regression, classification, clustering).
+3.  **Data Visualization Libraries:** Tools like Matplotlib or Seaborn for data exploration and analysis.
+4.  **SQL/NoSQL Databases:** Experience with general-purpose databases beyond vector databases for diverse data handling.
+5.  **Cloud ML Platforms:** Hands-on experience with services like AWS Sagemaker, Google Cloud AI Platform, or Azure ML for deployment and scaling.
+6.  **MLOps/Experiment Tracking Tools:** Familiarity with tools like MLflow or Weights & Biases for managing the ML lifecycle.
+
+**2) Resume edits (max 3):**
+
+1.  **Quantify Project Impact:** Add specific metrics or numbers to the ""AI Research Assistant"" project to demonstrate impact (e.g., ""achieved X% accuracy in routing,"" ""reduced hallucination rate by Y%,"" ""processed Z documents"").
+2.  **Emphasize Python & ML in Objective:** Rephrase the Objective to explicitly mention ""Python"" and ""Machine Learning models"" to directly align with the job description. For example: ""Seeking an Artificial Intelligence Internship to leverage strong Python skills and hands-on experience building production-style AI applications and intelligent workflows using LLMs and Machine Learning models...""
+3.  **Broaden ""LLMs & AI"" Skills:** In the ""Technical Skills"" section, consider adding ""Machine Learning Fundamentals"" or ""Classical ML Concepts"" under ""LLMs & AI"" to broaden the scope beyond just LLMs, if applicable to your knowledge.
+
+**3) Fit verdict (one line):**
+
+The resume demonstrates an excellent fit for an AI/ML Intern role, especially one focused on modern GenAI/LLM applications, with strong practical experience in Python, RAG, and API integration.","- DURAPID TECHNOLOGIES PRIVATE LIMITED - Company Info, CIN ...: 1,00,000 and paid-up share capital of Rs. 1,00,000, DURAPID TECHNOLOGIES PRIVATE LIMITED operates within these capital limits. DURAPID
+- DURAPID TECHNOLOGIES PRIVATE LIMITED - Company Profile: DURAPID TECHNOLOGIES PRIVATE LIMITED generated a revenue of INR 7.17Cr for the financial year ending on Mar 31, 2025, reflecting a 1-year
+- Durapid Technologies Private Limited Reviews (6), Pricing ... - Clutch: Making Enterprises Future-Ready with Microsoft AI. · Min project size. $1,000+ · Hourly rate. < $25 / hr · Employees. 50 - 249 · Locations. Jaipur, India · Year
+",9,"Dear Durapid Technologies Hiring Team,
+
+I am writing to express my strong interest in the Python AI/ML Intern position at Durapid Technologies. I am particularly impressed by your mission to ""Make Enterprises Future-Ready with Microsoft AI"" and your significant growth, reflected in your INR 7.17Cr revenue. As a final-year Electronics & Computer Engineering student, my hands-on experience aligns directly with your requirements.
+
+My ""AI Research Assistant"" project demonstrates my ability to design and develop robust AI/ML solutions. I engineered a multi-source RAG agent with intelligent routing, a two-layer hallucination prevention system, and exposed the full pipeline as a FastAPI REST API. This directly addresses integrating AI/ML solutions into applications and implementing validated models.
+
+Furthermore, my experience from the GenAI Powered Data Analytics Job Simulation covers predictive modeling and data preparation, complementing your needs for data cleaning and preprocessing. I am proficient in LangChain, vector databases, and prompt engineering, and actively build production-style AI applications independently. I am eager to contribute my skills to your team in Jaipur and support your innovative enterprise AI initiatives.
+
+Sincerely,
+Shourya Kapoor"
