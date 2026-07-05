@@ -108,7 +108,7 @@ def extract_resume_text(path="resume.pdf"):
 def main():
     resume_text = extract_resume_text("resume.pdf")
     df = pd.read_csv("data/jobs_ranked.csv")
-    top5 = df.head(1)
+    top5 = df.head(4)
 
     results = []
     for _, row in top5.iterrows():

@@ -20,6 +20,12 @@ def init_db():
 def load_pipeline_output(conn):
     df = pd.read_csv("data/pipeline_output.csv")
     for _, row in df.iterrows():
+        existing = conn.execute(
+            "SELECT id FROM applications WHERE company = ? AND title = ?",
+            (row["company"], row["title"])
+        ).fetchone()
+        if existing:
+            continue
         conn.execute(
             "INSERT INTO applications (company, title, match_score, cover_note) VALUES (?, ?, ?, ?)",
             (row["company"], row["title"], row["match_score"], row["final_cover_note"])

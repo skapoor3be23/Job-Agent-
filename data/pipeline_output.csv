@@ -1,31 +1,144 @@
 company,title,match_score,gap_analysis,company_research,critique_score,final_cover_note
 Durapid Technologies Pvt Ltd,Python AI/ML Intern,0.698649759815272,"**1) Missing skills (max 8):**
 
-1.  **Traditional ML Frameworks:** Explicit experience with frameworks like scikit-learn, TensorFlow, or PyTorch for general machine learning tasks.
-2.  **Classical ML Algorithms:** Direct mention of experience with algorithms beyond LLMs (e.g., regression, classification, clustering).
-3.  **Data Visualization Libraries:** Tools like Matplotlib or Seaborn for data exploration and analysis.
-4.  **SQL/NoSQL Databases:** Experience with general-purpose databases beyond vector databases for diverse data handling.
-5.  **Cloud ML Platforms:** Hands-on experience with services like AWS Sagemaker, Google Cloud AI Platform, or Azure ML for deployment and scaling.
-6.  **MLOps/Experiment Tracking Tools:** Familiarity with tools like MLflow or Weights & Biases for managing the ML lifecycle.
+1.  **Traditional ML Algorithms/Frameworks:** While strong in LLMs, the resume doesn't explicitly mention experience with general machine learning algorithms (e.g., classification, regression, clustering) or frameworks like scikit-learn.
+2.  **Deep Learning Frameworks (TensorFlow/PyTorch):** Direct experience with these foundational deep learning libraries for building and training models is often sought in AI/ML roles.
+3.  **Pandas & NumPy:** For general data cleaning, manipulation, and preprocessing beyond RAG-specific text handling.
+4.  **Model Evaluation Metrics:** Beyond RAG-specific hallucination prevention, general ML model evaluation metrics (e.g., precision, recall, F1-score, AUC) and cross-validation techniques.
+5.  **SQL:** For interacting with relational databases, which is common for data preparation in many ML projects.
+6.  **Cloud ML Services:** Experience with specific AI/ML services on major cloud platforms (e.g., AWS Sagemaker, GCP Vertex AI, Azure ML) for deployment and management.
+7.  **MLOps/Experiment Tracking Tools:** Tools like MLflow, Weights & Biases, or Docker for managing the ML lifecycle, experiment tracking, and model deployment.
+8.  **Statistical Analysis:** Foundational understanding and application of statistical methods for data exploration and model interpretation.
 
 **2) Resume edits (max 3):**
 
-1.  **Quantify Project Impact:** Add specific metrics or numbers to the ""AI Research Assistant"" project to demonstrate impact (e.g., ""achieved X% accuracy in routing,"" ""reduced hallucination rate by Y%,"" ""processed Z documents"").
-2.  **Emphasize Python & ML in Objective:** Rephrase the Objective to explicitly mention ""Python"" and ""Machine Learning models"" to directly align with the job description. For example: ""Seeking an Artificial Intelligence Internship to leverage strong Python skills and hands-on experience building production-style AI applications and intelligent workflows using LLMs and Machine Learning models...""
-3.  **Broaden ""LLMs & AI"" Skills:** In the ""Technical Skills"" section, consider adding ""Machine Learning Fundamentals"" or ""Classical ML Concepts"" under ""LLMs & AI"" to broaden the scope beyond just LLMs, if applicable to your knowledge.
+1.  **Broaden AI/ML Scope:** While the LLM focus is excellent, consider adding a line in the Objective or a new ""Relevant Coursework"" section to explicitly mention foundational knowledge of general machine learning concepts (e.g., supervised/unsupervised learning, data science principles) to demonstrate a wider understanding beyond just LLMs.
+2.  **Quantify Project Impact:** Enhance the ""AI Research Assistant"" project descriptions with more quantifiable results or metrics where possible (e.g., ""achieved X% reduction in hallucination rate,"" ""processed Y documents per second,"" ""improved retrieval relevance by Z%"").
+3.  **Add a ""Relevant Coursework"" Section:** Create a dedicated section to list specific courses like ""Machine Learning,"" ""Data Structures & Algorithms,"" ""Probability & Statistics,"" or ""Linear Algebra"" to highlight academic foundations relevant to AI/ML.
 
 **3) Fit verdict (one line):**
 
-The resume demonstrates an excellent fit for an AI/ML Intern role, especially one focused on modern GenAI/LLM applications, with strong practical experience in Python, RAG, and API integration.","- DURAPID TECHNOLOGIES PRIVATE LIMITED - Company Info, CIN ...: 1,00,000 and paid-up share capital of Rs. 1,00,000, DURAPID TECHNOLOGIES PRIVATE LIMITED operates within these capital limits. DURAPID
+Shourya demonstrates a very strong fit for an AI/ML internship, especially in Generative AI and LLMs, with impressive project experience in building and deploying intelligent applications, though could benefit from showcasing broader traditional ML skills.","- DURAPID TECHNOLOGIES PRIVATE LIMITED - Company Info, CIN ...: 1,00,000 and paid-up share capital of Rs. 1,00,000, DURAPID TECHNOLOGIES PRIVATE LIMITED operates within these capital limits. DURAPID
 - DURAPID TECHNOLOGIES PRIVATE LIMITED - Company Profile: DURAPID TECHNOLOGIES PRIVATE LIMITED generated a revenue of INR 7.17Cr for the financial year ending on Mar 31, 2025, reflecting a 1-year
-- Durapid Technologies Private Limited Reviews (6), Pricing ... - Clutch: Making Enterprises Future-Ready with Microsoft AI. · Min project size. $1,000+ · Hourly rate. < $25 / hr · Employees. 50 - 249 · Locations. Jaipur, India · Year
-",9,"Dear Durapid Technologies Hiring Team,
+- Durapid Technologies Private Limited | LinkedIn: Website: https://durapid.com · Industry: IT Services and IT Consulting · Company size: 51-200 employees · Headquarters: Jaipur, Rajasthan · Type: Privately Held.
+",8,"Dear Durapid Technologies Hiring Team,
 
-I am writing to express my strong interest in the Python AI/ML Intern position at Durapid Technologies. I am particularly impressed by your mission to ""Make Enterprises Future-Ready with Microsoft AI"" and your significant growth, reflected in your INR 7.17Cr revenue. As a final-year Electronics & Computer Engineering student, my hands-on experience aligns directly with your requirements.
+I am writing to express my enthusiastic interest in the AI/ML Intern position at Durapid Technologies Pvt Ltd in Jaipur. I am particularly drawn to your company's growth within the IT Services sector, as evidenced by your INR 7.17Cr revenue, and your commitment to developing innovative AI/ML solutions.
 
-My ""AI Research Assistant"" project demonstrates my ability to design and develop robust AI/ML solutions. I engineered a multi-source RAG agent with intelligent routing, a two-layer hallucination prevention system, and exposed the full pipeline as a FastAPI REST API. This directly addresses integrating AI/ML solutions into applications and implementing validated models.
+As a final-year Electronics & Computer Engineering student, my resume highlights extensive hands-on experience building production-style AI applications using Python, Large Language Models (LLMs), and Retrieval-Augmented Generation (RAG). My ""AI Research Assistant"" project, which features intelligent query routing, a two-layer hallucination prevention system, and a FastAPI REST API, directly aligns with your requirements for designing, implementing, and integrating robust AI/ML solutions. I am proficient in prompt engineering, vector databases like FAISS, and developing chatbots, skills crucial for scalable LLM-powered applications.
 
-Furthermore, my experience from the GenAI Powered Data Analytics Job Simulation covers predictive modeling and data preparation, complementing your needs for data cleaning and preprocessing. I am proficient in LangChain, vector databases, and prompt engineering, and actively build production-style AI applications independently. I am eager to contribute my skills to your team in Jaipur and support your innovative enterprise AI initiatives.
+I am eager to contribute my expertise in intelligent workflows and real-world AI debugging to your team of 51-200 employees. My collaborative experience on projects further ensures I can seamlessly integrate and contribute to your innovative initiatives.
+
+Thank you for your time and consideration.
+
+Sincerely,
+Shourya Kapoor"
+Topcoder,AI Model Quality & Evaluation Specialist (STEM Domains),0.6935320061936203,"Here's a comparison of the resume against the job description:
+
+**1) Missing skills (max 8):**
+
+1.  **Specific STEM Domain Expertise:** While the candidate has an ECE background, the job requires explicit expertise across Mathematics, Physics, Chemistry, Biology, Coding, and Finance for evaluation.
+2.  **AI Model Evaluation Methodologies & Metrics:** Beyond building and preventing hallucinations, the role implies a systematic approach to measuring and assessing AI model quality.
+3.  **Content Quality Assessment (technical accuracy, clarity, depth):** Skills in critically reviewing and enhancing the factual correctness, readability, and comprehensiveness of AI-generated technical content.
+4.  **Data Annotation/Labeling for AI Models:** Experience in creating or refining ground truth data for model evaluation.
+5.  **Experiment Design for AI Model Comparison/Improvement:** Ability to set up tests to compare different AI model outputs or prompting strategies to enhance quality.
+6.  **Technical Communication & Reporting (for evaluation findings):** Skills in documenting and presenting detailed analyses of AI model performance and areas for improvement.
+7.  **Critical Analysis of AI Outputs:** A focused ability to dissect and identify subtle inaccuracies, ambiguities, or logical flaws in AI responses.
+8.  **AI Bias Detection & Mitigation:** Understanding and ability to identify and address various forms of bias in AI model outputs, beyond just factual hallucination.
+
+**2) Resume edits (max 3):**
+
+1.  **Refocus Objective Statement:** Rephrase the objective to explicitly target ""AI Model Quality & Evaluation"" and highlight existing skills (LLMs, RAG, prompt engineering, hallucination prevention) as directly contributing to enhancing AI response accuracy, clarity, and depth, especially in technical/STEM contexts.
+2.  **Emphasize STEM Foundation:** Add a bullet point under ""Education"" or ""Additional"" to explicitly state a strong foundation in core STEM subjects (e.g., Mathematics, Physics, Computer Science fundamentals) gained through the B.Tech curriculum, and highlight the ""3D Geometric Transformation Visualizer"" project as demonstrating deep understanding of mathematical concepts (linear algebra).
+3.  **Elevate Quality-Related Skills:** In the ""Technical Skills"" section, add a new category or expand an existing one to explicitly list ""AI Model Evaluation,"" ""Content Accuracy Assessment,"" or ""Quality Assurance for AI Outputs,"" and include ""Hallucination Prevention"" and ""Prompt Optimization for Accuracy"" under it.
+
+**3) Fit verdict (one line):**
+
+While the candidate possesses strong technical skills in AI/LLMs and relevant experience in hallucination prevention, the resume does not meet the strict institutional and academic eligibility requirements for this role.","- Topcoder - 2026 Company Profile, Team, Funding & Competitors: Topcoder has raised a total funding of $11.3M over 1 round. Topcoder has 1 institutional investor. Here is the list of recent funding rounds of Topcoder: Round
+- TopCoder Stock Price, Funding, Valuation, Revenue & Financial ...: TopCoder has raised $10.8M over 2 rounds. TopCoder's latest funding round was a Acquired for on September 17, 2013. Date. Round. Amount. Investors. Valuation.
+- Topcoder - Crunchbase Company Profile & Funding: $1.6M This year, Topcoder is projected to spend $1.6M on IT, according to Aberdeen. Data source: Interest Signals
+",5,"Dear Hiring Team,
+
+I am writing to express my strong interest in the AI Model Quality & Evaluation Specialist position at Topcoder. As a final-year Electronics & Computer Engineering student from Thapar University, I understand the specified institutional eligibility, but believe my practical experience aligns closely with your team's mission. My JEE Advanced AIR falls within the preferred sub-1000 range.
+
+My hands-on experience building production-style AI applications directly addresses your objectives. For my personal AI Research Assistant project, I engineered a two-layer hallucination prevention system and implemented query rewriting for reliable, verifiable outputs from a multi-source RAG agent. This directly tackles core challenges in AI response quality and reliability.
+
+Furthermore, my involvement in designing AI-driven systems for fair automation during the Tata iQ GenAI simulation and debugging real-world AI integration issues has prepared me for your evaluation efforts. I confirm my availability to commit >20 hours/week remotely during weekdays, IST hours. I am eager to apply my skills in LLM-powered applications to ensure the highest quality AI responses.
+
+Thank you for your time and consideration.
+
+Sincerely,
+Shourya Kapoor
++91 98555 37077
+skapoor3be23@thapar.edu"
+SciTech Patent Art Services Pvt Ltd,AI/ML & Agentic AI Intern,0.6878057314408087,"Here's a comparison of Shourya Kapoor's resume against the job description:
+
+**Fit Verdict:**
+Shourya's resume presents a **strong fit** for the Agentic AI and LLM aspects of the role, demonstrating practical experience in building and deploying intelligent systems, though it could benefit from explicitly highlighting more traditional ML and data analysis skills.
+
+---
+
+**1) Missing Skills (max 8):**
+
+1.  **Machine Learning Frameworks:** Explicit mention of frameworks like PyTorch or TensorFlow (beyond just using LLM APIs) for ""model development.""
+2.  **Data Analysis Libraries:** Pandas, NumPy (for ""data analysis"" responsibilities).
+3.  **SQL/Database Management:** Often crucial for data-intensive roles, not explicitly listed.
+4.  **Cloud Platforms:** Experience with AWS, GCP, or Azure for scalable deployment and infrastructure.
+5.  **Docker/Containerization:** For robust and reproducible deployment practices.
+6.  **MLOps Tools:** (e.g., MLflow, Weights & Biases) for experiment tracking and managing the ML lifecycle, aligning with ""industry best practices.""
+7.  **Traditional ML Algorithms:** Specific mention of supervised/unsupervised learning, regression, classification, etc., if ""model development"" extends beyond LLMs.
+8.  **Specific ""Coding Agent"" Experience:** While ""AI Agents"" are mentioned, direct experience or projects focused on agents that generate or interact with code would be a plus.
+
+---
+
+**2) Resume Edits (max 3):**
+
+1.  **Expand ""Retrieval & Data"" or Add ""Data Analysis"" in Technical Skills:** Include specific data analysis libraries like **Pandas** and **NumPy**, and potentially **SQL**, to directly address the ""data analysis"" requirement in the JD.
+2.  **Refine Project Descriptions for ML/Agentic AI Relevance:** For the ""AI Research Assistant,"" explicitly highlight how it functions as an ""AI agent"" and how the engineering of the RAG pipeline contributes to ""model development"" (even if it's system-level development around an LLM). For the ""3D Geometric Transformation Visualizer,"" add a bullet point emphasizing transferable software engineering skills like ""applied robust software engineering principles and collaborative development for a high-performance, deployed application.""
+3.  **Tailor Objective/Summary Further:** Add a phrase like ""eager to contribute to model development and data analysis within AI/ML projects"" to directly echo the JD's responsibilities and show alignment with the broader ""AI/ML"" scope.","- SciTech Patent Art Services - Overview, News & Similar companies: SciTech Patent Art Services recently announced quarterly report Funding: SciTech Patent Art Services's revenue is $14.5 Million
+- SCITECH PATENT ART SERVICES PRIVATE LIMITED - Tracxn: SCITECH PATENT ART SERVICES PRIVATE LIMITED generated a revenue of ₹16.8Cr for the financial year ending on Mar 31, 2025. The revenue of SCITECH
+- SCITECH PATENT ART SERVICES PRIVATE LIMITED | ZaubaCorp: Its authorized share capital is Rs. 1000000.00. All types of fund raising acitivity is listed here including funding raised through Venture
+",9,"Dear SciTech Patent Art Services Hiring Team,
+
+I am writing to express my enthusiastic interest in the AI/ML & Agentic AI Intern position. As a final-year Electronics & Computer Engineering student with a strong focus on building production-style AI applications, I am particularly drawn to your commitment to real-world AI projects and cutting-edge technologies like LLMs and AI agents.
+
+My ""AI Research Assistant"" project directly aligns with your requirements, where I engineered a multi-source RAG agent that intelligently routes queries, implemented full RAG pipelines with vector databases and Gemini embeddings, and developed a two-layer hallucination prevention system. This hands-on experience in designing REST APIs for AI applications and developing robust, intelligent workflows using LLMs and AI agents, as highlighted in your job description, would allow me to contribute immediately. I also actively build independent AI products, debugging real-world integration issues end-to-end.
+
+I am eager to apply my practical skills in LLM-powered applications and agentic AI to SciTech Patent Art Services, a company with significant revenue and a clear focus on innovation. I am confident I can contribute meaningfully to your team.
+
+Sincerely,
+Shourya Kapoor"
+IAI solution,AI/ML Intern,0.6793860715567845,"Here's a comparison of Shourya Kapoor's resume against the AI/ML Intern (LLMs & Agent Systems) job description:
+
+**1) Missing Skills (max 8):**
+
+1.  **Deep Learning Frameworks:** While LangChain is used, direct experience with PyTorch or TensorFlow is often expected for foundational ML roles.
+2.  **Cloud Platforms:** Experience with AWS, GCP, or Azure for deploying and scaling AI applications.
+3.  **MLOps Concepts:** Knowledge of model versioning, monitoring, and CI/CD pipelines for ML.
+4.  **Docker/Containerization:** Essential for reproducible and scalable deployment.
+5.  **SQL/NoSQL Databases:** General database interaction beyond just vector databases.
+6.  **Advanced Data Preprocessing Libraries:** Explicit mention of Pandas, NumPy for general data manipulation.
+7.  **Experiment Tracking Tools:** Familiarity with tools like MLflow or Weights & Biases for managing ML experiments.
+8.  **LLM Evaluation Metrics:** Specific metrics for evaluating LLM performance (e.g., ROUGE, BLEU, perplexity).
+
+**2) Resume Edits (max 3):**
+
+1.  **Tailor Objective:** Slightly rephrase the Objective to directly incorporate keywords from the company overview, such as ""craft intelligent systems that think in teams, adapt with context, and deliver actionable insight.""
+2.  **Prioritize Skills:** Move ""Graphics & Interaction"" skills (Three.js, WebGL, AR.js, MediaPipe) lower in the Technical Skills section or consider condensing them, as they are less directly relevant to the LLM & Agent Systems role than the AI/ML and Backend skills.
+3.  **Refine ""Additional"" Section:** Integrate the strong point about ""Actively building production-style AI applications"" into a summary or the objective, and consider removing the less relevant ""Member, Helix Society"" to save space and focus on core AI experience.
+
+**3) Fit Verdict (one line):**
+
+Excellent fit, demonstrating strong hands-on experience with LLMs, RAG, and AI agents, directly aligning with the core requirements for real-world AI development.","- IAI Solutions - Crunchbase Company Profile & Funding: $391K This year, IAI Solutions is projected to spend $391K on IT, according to Aberdeen. Data source: Active Website Tech Count.
+- IAI - 2026 Company Profile, Team, Funding, Competitors & Financials: IAI has raised funding over 12 rounds. Its first funding round was on May 01, 2009. Its latest funding round was a Grant (prize money) round on Jan 01, 2024 for
+- Funding for startup AI companies dominates VC investment arena: Global funding for AI startups was $270.2 billion, accounting for 52.7% of the total $512.6 billion in VC investments, according to an analysis
+",8,"Dear IAI Solution Hiring Team,
+
+I am writing to express my keen interest in the AI/ML Intern (LLMs & Agent Systems) position at IAI Solution. Your company's mission, operating ""at the edge of applied AI where foundational research meets real-world deployment"" and crafting ""intelligent systems that think in teams, adapt with context,"" perfectly aligns with my practical experience.
+
+As a final-year Electronics & Computer Engineering student, I specialize in building production-style AI applications. My ""AI Research Assistant"" project, for instance, is a multi-source RAG agent designed to intelligently route queries and prevent hallucinations with a two-layer system. This demonstrates my ability to develop adaptive, context-aware LLM solutions, leveraging LangChain, FAISS, and FastAPI for robust API integration.
+
+I am adept at debugging complex API-integration issues end-to-end, from local setup to deployment, which I believe is crucial for contributing to IAI Solution's real-world AI development. Given your recent funding rounds and focus on innovation, I am eager to apply my skills in LLMs and agent systems to contribute to your cutting-edge projects and help deliver actionable insights.
 
 Sincerely,
 Shourya Kapoor"
