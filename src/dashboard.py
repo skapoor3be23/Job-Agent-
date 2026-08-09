@@ -14,6 +14,8 @@ st.caption(
     "critique → rewrite) live. Takes 15-30 seconds."
 )
 
+jd_input_mode = st.radio("Job description input", ["Paste text", "Upload PDF"], horizontal=True)
+
 with st.form("live_run_form"):
     col1, col2 = st.columns(2)
     with col1:
@@ -22,7 +24,6 @@ with st.form("live_run_form"):
     with col2:
         resume_file = st.file_uploader("Resume (PDF)", type=["pdf"])
 
-    jd_input_mode = st.radio("Job description input", ["Paste text", "Upload PDF"], horizontal=True)
     if jd_input_mode == "Paste text":
         live_jd = st.text_area("Job description", height=150)
         jd_file = None
