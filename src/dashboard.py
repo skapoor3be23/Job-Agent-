@@ -21,20 +21,37 @@ with st.form("live_run_form"):
         live_title = st.text_input("Job title")
     with col2:
         resume_file = st.file_uploader("Resume (PDF)", type=["pdf"])
-    live_jd = st.text_area("Job description", height=150)
+
+    jd_input_mode = st.radio("Job description input", ["Paste text", "Upload PDF"], horizontal=True)
+    if jd_input_mode == "Paste text":
+        live_jd = st.text_area("Job description", height=150)
+        jd_file = None
+    else:
+        jd_file = st.file_uploader("Job description (PDF)", type=["pdf"], key="jd_pdf")
+        live_jd = ""
+
     submitted = st.form_submit_button("Run pipeline")
 
 if submitted:
     if not resume_file:
         st.error("Upload a resume PDF first.")
-    elif not live_jd or len(live_jd.strip()) < 20:
+    elif jd_input_mode == "Paste text" and (not live_jd or len(live_jd.strip()) < 20):
         st.error("Paste a job description (at least a few sentences).")
+    elif jd_input_mode == "Upload PDF" and not jd_file:
+        st.error("Upload a job description PDF.")
     elif not live_company or not live_title:
         st.error("Fill in company and job title.")
     else:
         try:
             reader = PdfReader(resume_file)
             resume_text = "".join(page.extract_text() or "" for page in reader.pages)
+
+            if jd_input_mode == "Upload PDF":
+                jd_reader = PdfReader(jd_file)
+                live_jd = "".join(page.extract_text() or "" for page in jd_reader.pages)
+                if len(live_jd.strip()) < 20:
+                    st.error("Could not extract readable text from the JD PDF.")
+                    st.stop()
 
             with st.status("Running pipeline...", expanded=True) as status:
                 st.write("Extracting resume text... done.")

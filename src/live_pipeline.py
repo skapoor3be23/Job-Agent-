@@ -63,10 +63,21 @@ Return: 1) Missing skills (max 8) 2) Resume edits (max 3) 3) Fit verdict (one li
         try:
             query = f"{state['company']} company funding size recent news"
             response = tavily.search(query, max_results=3)
-            summary = ""
+            raw = ""
             for r in response.get("results", []):
-                summary += f"- {r.get('title', '')}: {r.get('content', '')[:200]}\n"
-            state["company_research"] = summary if summary else "No information found."
+                raw += f"- {r.get('title', '')}: {r.get('content', '')[:400]}\n"
+            if not raw:
+                state["company_research"] = "No information found."
+                return state
+            # Synthesize raw search fragments into clean prose instead of dumping them
+            synth_prompt = f"""Below are raw web search snippets about {state['company']}.
+Write a clean 3-4 sentence summary covering: what the company does, size/scale if mentioned,
+and one recent relevant fact. Do not include broken sentences, metadata labels, or bullet fragments.
+If the snippets are too fragmented to summarize reliably, say so plainly instead of guessing.
+
+RAW SNIPPETS:
+{raw}"""
+            state["company_research"] = llm.invoke(synth_prompt).content
         except Exception as e:
             state["company_research"] = f"ERROR: {str(e)}"
         return state
@@ -93,10 +104,25 @@ Rules: reference specific company facts, reference specific resume achievements,
             state["critique_issues"] = "Skipped due to upstream failure."
             return state
         try:
-            prompt = f"""Score this cover note 1-10 against the JD.
+            prompt = f"""You are a strict, skeptical hiring manager reviewing a cover note.
+Be harsh — most cover notes have real flaws. Do not default to high scores.
+
 JD: {state['jd_text']}
 NOTE: {state['cover_note']}
-Return: SCORE: <number>\nISSUES: <max 3 issues or None>"""
+
+Score on this rubric (each out of 2, sum to get total /10):
+1. Specificity: does it cite concrete, verifiable details from the resume (not vague claims)?
+2. JD alignment: does it address the JD's actual stated requirements, not just adjacent skills?
+3. Company relevance: does it use a genuine, specific company fact (not generic filler)?
+4. No generic phrases: no "passionate," "quick learner," "team player," or similar filler?
+5. Would a human reviewer keep reading past the first two lines?
+
+For each gap you notice in the ISSUES list, you MUST deduct at least 1 point total.
+A score of 8+ requires zero notable issues. If you list any issues, score must be 7 or below.
+
+Return exactly:
+SCORE: <number>
+ISSUES: <specific issues found, or None only if score is 8+>"""
             response = llm.invoke(prompt).content
             score_match = re.search(r"SCORE:\s*(\d+)", response)
             issues_match = re.search(r"ISSUES:\s*(.+)", response, re.DOTALL)
