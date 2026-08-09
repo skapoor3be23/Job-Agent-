@@ -1,0 +1,7 @@
+streamlit
+pandas
+pypdf
+langchain-google-genai
+langgraph
+tavily-python
+numpy

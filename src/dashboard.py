@@ -1,9 +1,65 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
+from pypdf import PdfReader
+from live_pipeline import run_live_pipeline
 
 st.set_page_config(page_title="Job Application Agent", layout="wide")
 st.title("Job Application Agent Dashboard")
+
+st.subheader("Run Pipeline Live")
+st.caption(
+    "Upload your resume and paste a job description to run the full "
+    "5-agent pipeline (gap analysis → company research → cover note → "
+    "critique → rewrite) live. Takes 15-30 seconds."
+)
+
+with st.form("live_run_form"):
+    col1, col2 = st.columns(2)
+    with col1:
+        live_company = st.text_input("Company")
+        live_title = st.text_input("Job title")
+    with col2:
+        resume_file = st.file_uploader("Resume (PDF)", type=["pdf"])
+    live_jd = st.text_area("Job description", height=150)
+    submitted = st.form_submit_button("Run pipeline")
+
+if submitted:
+    if not resume_file:
+        st.error("Upload a resume PDF first.")
+    elif not live_jd or len(live_jd.strip()) < 20:
+        st.error("Paste a job description (at least a few sentences).")
+    elif not live_company or not live_title:
+        st.error("Fill in company and job title.")
+    else:
+        try:
+            reader = PdfReader(resume_file)
+            resume_text = "".join(page.extract_text() or "" for page in reader.pages)
+
+            with st.status("Running pipeline...", expanded=True) as status:
+                st.write("Extracting resume text... done.")
+                st.write("Running gap analysis, company research, cover note, critique, and rewrite...")
+                result = run_live_pipeline(resume_text, live_company, live_title, live_jd)
+                status.update(label="Pipeline complete", state="complete")
+
+            st.subheader("Gap Analysis")
+            st.write(result["gap_analysis"])
+
+            st.subheader("Company Research")
+            st.write(result["company_research"])
+
+            st.subheader("Critique")
+            st.write(f"Score: {result['critique_score']}/10 — {result['critique_issues']}")
+
+            st.subheader("Final Cover Note")
+            st.text_area("Result", result["final_cover_note"], height=250)
+
+        except RuntimeError as e:
+            st.error(str(e))
+        except Exception as e:
+            st.error(f"Pipeline failed: {e}")
+
+st.divider()
 
 conn = sqlite3.connect("data/tracker.db")
 df = pd.read_sql("SELECT * FROM applications", conn)
