@@ -69,20 +69,51 @@ if submitted:
             st.subheader("Critique")
             st.write(f"Score: {result['critique_score']}/100 — {result['critique_issues']}")
 
-            st.subheader("Final Cover Note")
-            st.text_area("Result", result["final_cover_note"], height=250)
+            st.subheader("Final Cover Note (this run — not yet saved)")
+            st.text_area("Result", result["final_cover_note"], height=250, key="live_result_note")
+
+            st.session_state["last_live_result"] = {
+                "company": live_company,
+                "title": live_title,
+                "cover_note": result["final_cover_note"],
+            }
 
         except RuntimeError as e:
             st.error(str(e))
         except Exception as e:
             st.error(f"Pipeline failed: {e}")
 
+if "last_live_result" in st.session_state:
+    st.info(
+        f"Last live result for **{st.session_state['last_live_result']['company']} — "
+        f"{st.session_state['last_live_result']['title']}** is shown above and not yet "
+        f"saved to your Applications table below."
+    )
+    if st.button("Save this result to Applications"):
+        save_conn = sqlite3.connect("data/tracker.db")
+        save_conn.execute(
+            "INSERT INTO applications (company, title, match_score, status, cover_note) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (
+                st.session_state["last_live_result"]["company"],
+                st.session_state["last_live_result"]["title"],
+                None,  # live pipeline doesn't compute a match_score; only the old batch matcher does
+                "not_applied",
+                st.session_state["last_live_result"]["cover_note"],
+            ),
+        )
+        save_conn.commit()
+        save_conn.close()
+        st.success("Saved to Applications table below.")
+        del st.session_state["last_live_result"]
+        st.rerun()
+
 st.divider()
 
 conn = sqlite3.connect("data/tracker.db")
 df = pd.read_sql("SELECT * FROM applications", conn)
 
-st.subheader("Applications")
+st.subheader("Saved Applications (from tracker.db)")
 status_filter = st.selectbox("Filter by status", ["All"] + df["status"].unique().tolist())
 if status_filter != "All":
     df_display = df[df["status"] == status_filter]
@@ -100,12 +131,12 @@ if st.button("Update"):
     st.success(f"Updated ID {app_id} to {new_status}")
     st.rerun()
 
-st.subheader("Cover Note")
+st.subheader("Saved Cover Note (for selected application above)")
 selected_row = df[df["id"] == app_id]
 if not selected_row.empty:
-    st.text_area("Final cover note", selected_row.iloc[0]["cover_note"], height=300)
+    st.text_area("Saved cover note", selected_row.iloc[0]["cover_note"], height=300)
 
-st.subheader("Status Breakdown")
+st.subheader("Status Breakdown (saved applications only)")
 status_counts = df["status"].value_counts()
 st.bar_chart(status_counts)
 
