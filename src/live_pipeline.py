@@ -104,34 +104,50 @@ Rules: reference specific company facts, reference specific resume achievements,
             state["critique_issues"] = "Skipped due to upstream failure."
             return state
         try:
-            prompt = f"""You are a strict, skeptical hiring manager reviewing a cover note.
-Be harsh — most cover notes have real flaws. Do not default to high scores.
+            prompt = f"""You are a strict, skeptical hiring manager reviewing both a candidate's
+resume-to-JD fit AND their cover note. Be harsh — most cover notes and resumes have real flaws.
+Do not default to high scores.
 
 JD: {state['jd_text']}
-NOTE: {state['cover_note']}
 
-Score each category out of 20, sum for a total out of 100:
-1. Specificity (0-20): concrete, verifiable resume details vs vague claims.
-2. JD alignment (0-20): addresses the JD's actual stated requirements, including soft
-   skills/collaboration language if the JD asks for it — not just the technical parts.
-3. Company relevance (0-20): uses a genuine, specific company fact, not generic filler.
-4. Writing quality (0-20): no generic phrases ("passionate," "quick learner," "team player"),
+GAP ANALYSIS (independent comparison of the candidate's actual resume against this JD,
+already completed — use this to judge REAL fit, not just how well the cover note is written):
+{state['gap_analysis']}
+
+COVER NOTE: {state['cover_note']}
+
+Score each category, sum for a total out of 100:
+
+1. Resume-JD Fit (0-20): Based on the GAP ANALYSIS above, how well does the candidate's ACTUAL
+   resume — not the cover note's claims — cover the JD's stated requirements? If the JD asks for
+   things (teamwork, breadth of tech stack, specific tools, soft skills, etc.) that the gap analysis
+   says are missing or unaddressed in the resume, this must score low — a well-written cover note
+   cannot compensate for a resume that genuinely lacks the substance the JD asks for. A JD asking
+   for a generalist matched against a narrow specialist resume is a real fit problem, not a writing
+   problem — reflect that here even if the cover note itself reads well.
+2. Specificity (0-16): concrete, verifiable resume details vs vague claims in the cover note.
+3. JD alignment in the note (0-16): does the cover note itself address the JD's stated
+   requirements, including soft skills/collaboration language if the JD asks for it?
+4. Company relevance (0-16): uses a genuine, specific company fact, not generic filler.
+5. Writing quality (0-16): no generic phrases ("passionate," "quick learner," "team player"),
    reads naturally, appropriate length.
-5. Overall persuasiveness (0-20): would a hiring manager keep reading past the first two lines
+6. Overall persuasiveness (0-16): would a hiring manager keep reading past the first two lines
    and want to interview this candidate?
 
-Deduct points within each category for any gap, however minor. A near-perfect 18-20 in any
-category requires that category to have zero notable issues — most categories will realistically
-score 10-16 even for a solid note, because real cover notes always have some gap.
+Deduct points within each category for any gap, however minor. Category 1 (Resume-JD Fit) is the
+most important — a strong cover note riding on a genuinely mismatched resume should still land in
+the 50-65 total range, not higher, because real fit matters more than presentation.
 
 Return exactly:
-SPECIFICITY: <0-20>
-JD_ALIGNMENT: <0-20>
-COMPANY_RELEVANCE: <0-20>
-WRITING_QUALITY: <0-20>
-PERSUASIVENESS: <0-20>
+RESUME_JD_FIT: <0-20>
+SPECIFICITY: <0-16>
+JD_ALIGNMENT: <0-16>
+COMPANY_RELEVANCE: <0-16>
+WRITING_QUALITY: <0-16>
+PERSUASIVENESS: <0-16>
 TOTAL: <sum of above, 0-100>
-ISSUES: <specific issues found, per category, or None only if all categories score 18+>"""
+ISSUES: <specific issues found, per category, especially any real resume-JD fit gaps from the
+gap analysis, or None only if all categories score at their max>"""
             response = llm.invoke(prompt).content
             total_match = re.search(r"TOTAL:\s*(\d+)", response)
             issues_match = re.search(r"ISSUES:\s*(.+)", response, re.DOTALL)
@@ -171,6 +187,23 @@ ISSUES: <specific issues found, per category, or None only if all categories sco
             if word_count < 100 or word_count > 280:
                 deterministic_issues.append(f"Length ({word_count} words) is outside a normal 150-200 word range.")
                 score_cap = min(score_cap, 70)
+
+            # Real resume-JD fit gap count, straight from the gap analysis itself.
+            # A cover note cannot be graded higher than the underlying resume actually supports —
+            # this counts numbered "Missing Skills" items the gap analysis already found.
+            missing_skill_matches = re.findall(r"^\s*\d+\.\s", state["gap_analysis"], re.MULTILINE)
+            missing_count = len(missing_skill_matches)
+            if missing_count >= 6:
+                deterministic_issues.append(
+                    f"Gap analysis found {missing_count} unaddressed JD requirements in the resume itself — "
+                    "a real fit gap, not just a writing issue."
+                )
+                score_cap = min(score_cap, 65)
+            elif missing_count >= 4:
+                deterministic_issues.append(
+                    f"Gap analysis found {missing_count} unaddressed JD requirements in the resume itself."
+                )
+                score_cap = min(score_cap, 78)
 
             state["critique_score"] = min(llm_score, score_cap)
             if deterministic_issues:
