@@ -53,7 +53,7 @@ def _build_graph(llm, tavily):
             prompt = f"""Compare resume against job description.
 RESUME: {state['resume_text']}
 JOB ({state['title']} at {state['company']}): {state['jd_text']}
-Return: 1) Missing skills (max 8) 2) Resume edits (max 3) 3) Fit verdict (one line)."""
+Return: 1) Missing skills (as many as genuinely relevant, no artificial cap) 2) Resume edits (as many as genuinely relevant, no artificial cap) 3) Fit verdict (one line)."""
             state["gap_analysis"] = llm.invoke(prompt).content
         except Exception as e:
             state["gap_analysis"] = f"ERROR: {str(e)}"

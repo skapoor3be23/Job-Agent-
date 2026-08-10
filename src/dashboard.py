@@ -94,14 +94,12 @@ if submitted:
             st.subheader("Critique")
             st.write(f"Score: {result['critique_score']}/100 — {result['critique_issues']}")
 
-            st.subheader("Final Cover Note (this run — not yet saved)")
-            st.text_area("Result", result["final_cover_note"], height=250, key="live_result_note")
-
             st.session_state["last_live_result"] = {
                 "company": live_company,
                 "title": live_title,
                 "cover_note": result["final_cover_note"],
             }
+            st.caption("Cover note for this run is shown in the 'Cover Note' section below.")
 
         except RuntimeError as e:
             st.error(str(e))
@@ -172,10 +170,19 @@ if st.button("Update"):
     st.success(f"Updated ID {app_id} to {new_status}")
     st.rerun()
 
-st.subheader("Saved Cover Note (for selected application above)")
-selected_row = df[df["id"] == app_id]
-if not selected_row.empty:
-    st.text_area("Saved cover note", selected_row.iloc[0]["cover_note"], height=300)
+st.subheader("Cover Note")
+if "last_live_result" in st.session_state:
+    st.caption(
+        f"Showing the live result for **{st.session_state['last_live_result']['company']} — "
+        f"{st.session_state['last_live_result']['title']}** (not yet saved). "
+        f"Save it above, or select a different saved application below to view its note instead."
+    )
+    st.text_area("Live cover note", st.session_state["last_live_result"]["cover_note"], height=300)
+else:
+    selected_row = df[df["id"] == app_id]
+    if not selected_row.empty:
+        st.caption(f"Showing the saved note for application ID {app_id}.")
+        st.text_area("Saved cover note", selected_row.iloc[0]["cover_note"], height=300)
 
 st.subheader("Status Breakdown (saved applications only)")
 status_counts = df["status"].value_counts()
