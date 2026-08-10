@@ -67,7 +67,7 @@ if submitted:
             st.write(result["company_research"])
 
             st.subheader("Critique")
-            st.write(f"Score: {result['critique_score']}/10 — {result['critique_issues']}")
+            st.write(f"Score: {result['critique_score']}/100 — {result['critique_issues']}")
 
             st.subheader("Final Cover Note")
             st.text_area("Result", result["final_cover_note"], height=250)

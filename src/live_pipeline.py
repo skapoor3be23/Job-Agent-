@@ -110,24 +110,73 @@ Be harsh — most cover notes have real flaws. Do not default to high scores.
 JD: {state['jd_text']}
 NOTE: {state['cover_note']}
 
-Score on this rubric (each out of 2, sum to get total /10):
-1. Specificity: does it cite concrete, verifiable details from the resume (not vague claims)?
-2. JD alignment: does it address the JD's actual stated requirements, not just adjacent skills?
-3. Company relevance: does it use a genuine, specific company fact (not generic filler)?
-4. No generic phrases: no "passionate," "quick learner," "team player," or similar filler?
-5. Would a human reviewer keep reading past the first two lines?
+Score each category out of 20, sum for a total out of 100:
+1. Specificity (0-20): concrete, verifiable resume details vs vague claims.
+2. JD alignment (0-20): addresses the JD's actual stated requirements, including soft
+   skills/collaboration language if the JD asks for it — not just the technical parts.
+3. Company relevance (0-20): uses a genuine, specific company fact, not generic filler.
+4. Writing quality (0-20): no generic phrases ("passionate," "quick learner," "team player"),
+   reads naturally, appropriate length.
+5. Overall persuasiveness (0-20): would a hiring manager keep reading past the first two lines
+   and want to interview this candidate?
 
-For each gap you notice in the ISSUES list, you MUST deduct at least 1 point total.
-A score of 8+ requires zero notable issues. If you list any issues, score must be 7 or below.
+Deduct points within each category for any gap, however minor. A near-perfect 18-20 in any
+category requires that category to have zero notable issues — most categories will realistically
+score 10-16 even for a solid note, because real cover notes always have some gap.
 
 Return exactly:
-SCORE: <number>
-ISSUES: <specific issues found, or None only if score is 8+>"""
+SPECIFICITY: <0-20>
+JD_ALIGNMENT: <0-20>
+COMPANY_RELEVANCE: <0-20>
+WRITING_QUALITY: <0-20>
+PERSUASIVENESS: <0-20>
+TOTAL: <sum of above, 0-100>
+ISSUES: <specific issues found, per category, or None only if all categories score 18+>"""
             response = llm.invoke(prompt).content
-            score_match = re.search(r"SCORE:\s*(\d+)", response)
+            total_match = re.search(r"TOTAL:\s*(\d+)", response)
             issues_match = re.search(r"ISSUES:\s*(.+)", response, re.DOTALL)
-            state["critique_score"] = int(score_match.group(1)) if score_match else 5
-            state["critique_issues"] = issues_match.group(1).strip() if issues_match else "Unknown"
+            llm_score = int(total_match.group(1)) if total_match else 50
+            issues_text = issues_match.group(1).strip() if issues_match else "Unknown"
+
+            # Deterministic guardrails: LLM self-grading is structurally lenient
+            # (same model family judging its own sibling's output). These checks
+            # can't be talked around by prompt wording, so they cap the score
+            # independently of what the LLM claims.
+            note_lower = state["cover_note"].lower()
+            deterministic_issues = []
+            score_cap = 100
+
+            generic_phrases = ["passionate", "quick learner", "team player", "hard worker",
+                                "detail-oriented", "self-motivated", "go-getter"]
+            found_generic = [p for p in generic_phrases if p in note_lower]
+            if found_generic:
+                deterministic_issues.append(f"Generic filler phrase(s) used: {', '.join(found_generic)}")
+                score_cap = min(score_cap, 60)
+
+            # Does the note address soft-skill/collaboration language if the JD asks for it?
+            jd_lower = state["jd_text"].lower()
+            soft_skill_markers = ["team", "collaborat", "interpersonal", "communicat",
+                                   "dispersed", "stakeholder", "independently"]
+            jd_wants_soft_skills = any(m in jd_lower for m in soft_skill_markers)
+            note_has_soft_skills = any(m in note_lower for m in soft_skill_markers)
+            if jd_wants_soft_skills and not note_has_soft_skills:
+                deterministic_issues.append(
+                    "JD emphasizes teamwork/collaboration/communication, but the note "
+                    "does not address this at all."
+                )
+                score_cap = min(score_cap, 60)
+
+            # Word count sanity check (JD-agnostic but structural)
+            word_count = len(state["cover_note"].split())
+            if word_count < 100 or word_count > 280:
+                deterministic_issues.append(f"Length ({word_count} words) is outside a normal 150-200 word range.")
+                score_cap = min(score_cap, 70)
+
+            state["critique_score"] = min(llm_score, score_cap)
+            if deterministic_issues:
+                state["critique_issues"] = issues_text + " | Automated checks: " + "; ".join(deterministic_issues)
+            else:
+                state["critique_issues"] = issues_text
         except Exception as e:
             state["critique_score"] = 0
             state["critique_issues"] = f"ERROR: {str(e)}"
@@ -137,7 +186,7 @@ ISSUES: <specific issues found, or None only if score is 8+>"""
         if state["cover_note"].startswith("SKIPPED") or state["cover_note"].startswith("ERROR"):
             state["final_cover_note"] = state["cover_note"]
             return state
-        if 0 < state["critique_score"] < 8:
+        if 0 < state["critique_score"] < 80:
             try:
                 prompt = f"""Rewrite this cover note fixing: {state['critique_issues']}
 JD: {state['jd_text']}
