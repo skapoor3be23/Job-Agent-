@@ -155,19 +155,21 @@ gap analysis, or None only if all categories score at their max>"""
             issues_text = issues_match.group(1).strip() if issues_match else "Unknown"
 
             # Deterministic guardrails: LLM self-grading is structurally lenient
-            # (same model family judging its own sibling's output). These checks
-            # can't be talked around by prompt wording, so they cap the score
-            # independently of what the LLM claims.
+            # (same model family judging its own sibling's output). Rather than
+            # clamping to a fixed ceiling (which produces suspicious round numbers
+            # like 65/60/70 regardless of actual severity), each check SUBTRACTS a
+            # scaled penalty from whatever the LLM gave, so the final number reflects
+            # the actual combination of issues found instead of collapsing to a preset.
             note_lower = state["cover_note"].lower()
             deterministic_issues = []
-            score_cap = 100
+            penalty = 0
 
             generic_phrases = ["passionate", "quick learner", "team player", "hard worker",
                                 "detail-oriented", "self-motivated", "go-getter"]
             found_generic = [p for p in generic_phrases if p in note_lower]
             if found_generic:
                 deterministic_issues.append(f"Generic filler phrase(s) used: {', '.join(found_generic)}")
-                score_cap = min(score_cap, 60)
+                penalty += 4 * len(found_generic)
 
             # Does the note address soft-skill/collaboration language if the JD asks for it?
             jd_lower = state["jd_text"].lower()
@@ -180,34 +182,30 @@ gap analysis, or None only if all categories score at their max>"""
                     "JD emphasizes teamwork/collaboration/communication, but the note "
                     "does not address this at all."
                 )
-                score_cap = min(score_cap, 60)
+                penalty += 12
 
             # Word count sanity check (JD-agnostic but structural)
             word_count = len(state["cover_note"].split())
             if word_count < 100 or word_count > 280:
                 deterministic_issues.append(f"Length ({word_count} words) is outside a normal 150-200 word range.")
-                score_cap = min(score_cap, 70)
+                penalty += 6
 
             # Real resume-JD fit gap count, straight from the gap analysis itself.
-            # A cover note cannot be graded higher than the underlying resume actually supports —
-            # this counts numbered "Missing Skills" items the gap analysis already found.
+            # Each unaddressed JD requirement the gap analysis already found costs
+            # points proportionally, instead of jumping to a fixed ceiling at a threshold.
             missing_skill_matches = re.findall(r"^\s*\d+\.\s", state["gap_analysis"], re.MULTILINE)
             missing_count = len(missing_skill_matches)
-            if missing_count >= 6:
+            if missing_count > 2:
+                gap_penalty = (missing_count - 2) * 4  # scales smoothly, no cliff at a threshold
                 deterministic_issues.append(
-                    f"Gap analysis found {missing_count} unaddressed JD requirements in the resume itself — "
-                    "a real fit gap, not just a writing issue."
+                    f"Gap analysis found {missing_count} unaddressed JD requirements in the resume "
+                    f"itself — a real fit gap, not just a writing issue (-{gap_penalty})."
                 )
-                score_cap = min(score_cap, 65)
-            elif missing_count >= 4:
-                deterministic_issues.append(
-                    f"Gap analysis found {missing_count} unaddressed JD requirements in the resume itself."
-                )
-                score_cap = min(score_cap, 78)
+                penalty += gap_penalty
 
-            state["critique_score"] = min(llm_score, score_cap)
+            state["critique_score"] = max(0, min(100, llm_score - penalty))
             if deterministic_issues:
-                state["critique_issues"] = issues_text + " | Automated checks: " + "; ".join(deterministic_issues)
+                state["critique_issues"] = issues_text + " | Automated deductions: " + "; ".join(deterministic_issues)
             else:
                 state["critique_issues"] = issues_text
         except Exception as e:
