@@ -16,6 +16,29 @@ st.caption(
 
 jd_input_mode = st.radio("Job description input", ["Paste text", "Upload PDF"], horizontal=True)
 
+preview_col1, preview_col2 = st.columns(2)
+with preview_col1:
+    preview_resume_file = st.file_uploader("Resume (PDF) — for preview", type=["pdf"], key="preview_resume")
+    if preview_resume_file:
+        preview_reader = PdfReader(preview_resume_file)
+        preview_resume_text = "".join(page.extract_text() or "" for page in preview_reader.pages)
+        with st.expander("Preview extracted resume text (check it's readable before running)"):
+            st.text(preview_resume_text[:1500] + ("..." if len(preview_resume_text) > 1500 else ""))
+
+with preview_col2:
+    if jd_input_mode == "Upload PDF":
+        preview_jd_file = st.file_uploader("Job description (PDF) — for preview", type=["pdf"], key="preview_jd")
+        if preview_jd_file:
+            preview_jd_reader = PdfReader(preview_jd_file)
+            preview_jd_text = "".join(page.extract_text() or "" for page in preview_jd_reader.pages)
+            with st.expander("Preview extracted JD text (check it's readable before running)"):
+                st.text(preview_jd_text[:1500] + ("..." if len(preview_jd_text) > 1500 else ""))
+
+st.caption(
+    "Each run makes ~4-5 Gemini calls and 1 Tavily search call. "
+    f"Runs so far this session: {st.session_state.get('run_count', 0)}."
+)
+
 with st.form("live_run_form"):
     col1, col2 = st.columns(2)
     with col1:
@@ -60,6 +83,8 @@ if submitted:
                 result = run_live_pipeline(resume_text, live_company, live_title, live_jd)
                 status.update(label="Pipeline complete", state="complete")
 
+            st.session_state["run_count"] = st.session_state.get("run_count", 0) + 1
+
             st.subheader("Gap Analysis")
             st.write(result["gap_analysis"])
 
@@ -91,22 +116,38 @@ if "last_live_result" in st.session_state:
     )
     if st.button("Save this result to Applications"):
         save_conn = sqlite3.connect("data/tracker.db")
-        save_conn.execute(
-            "INSERT INTO applications (company, title, match_score, status, cover_note) "
-            "VALUES (?, ?, ?, ?, ?)",
-            (
-                st.session_state["last_live_result"]["company"],
-                st.session_state["last_live_result"]["title"],
-                None,  # live pipeline doesn't compute a match_score; only the old batch matcher does
-                "not_applied",
-                st.session_state["last_live_result"]["cover_note"],
-            ),
-        )
-        save_conn.commit()
+        new_company = st.session_state["last_live_result"]["company"].strip()
+        new_title = st.session_state["last_live_result"]["title"].strip()
+        # Case-insensitive dedup check, not just exact match, to catch
+        # "tech intern" vs "Tech Intern" vs " Tech Intern " style near-duplicates.
+        existing = save_conn.execute(
+            "SELECT id FROM applications WHERE LOWER(TRIM(company)) = LOWER(?) "
+            "AND LOWER(TRIM(title)) = LOWER(?)",
+            (new_company, new_title),
+        ).fetchone()
+        if existing:
+            st.warning(
+                f"An application for '{new_company}' — '{new_title}' already exists "
+                f"(ID {existing[0]}). Not saving a duplicate. Update its status below instead, "
+                f"or change the company/title if this is genuinely a different role."
+            )
+        else:
+            save_conn.execute(
+                "INSERT INTO applications (company, title, match_score, status, cover_note) "
+                "VALUES (?, ?, ?, ?, ?)",
+                (
+                    new_company,
+                    new_title,
+                    None,  # live pipeline doesn't compute a match_score; only the old batch matcher does
+                    "not_applied",
+                    st.session_state["last_live_result"]["cover_note"],
+                ),
+            )
+            save_conn.commit()
+            st.success("Saved to Applications table below.")
+            del st.session_state["last_live_result"]
+            st.rerun()
         save_conn.close()
-        st.success("Saved to Applications table below.")
-        del st.session_state["last_live_result"]
-        st.rerun()
 
 st.divider()
 

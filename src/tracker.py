@@ -21,8 +21,9 @@ def load_pipeline_output(conn):
     df = pd.read_csv("data/pipeline_output.csv")
     for _, row in df.iterrows():
         existing = conn.execute(
-            "SELECT id FROM applications WHERE company = ? AND title = ?",
-            (row["company"], row["title"])
+            "SELECT id FROM applications WHERE LOWER(TRIM(company)) = LOWER(?) "
+            "AND LOWER(TRIM(title)) = LOWER(?)",
+            (str(row["company"]).strip(), str(row["title"]).strip())
         ).fetchone()
         if existing:
             continue
